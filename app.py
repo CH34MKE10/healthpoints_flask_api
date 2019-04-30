@@ -13,6 +13,8 @@ CORS(app)
 user = str(os.environ.get('USER'))
 password = str(os.environ.get('PW'))
 account = str(os.environ.get('ACCOUNT'))
+env_wh = str(os.environ.get('WH'))
+env_schema = str(os.environ.get('SCHEMA'))
 
 # utility functions
 def get_generated_id():
@@ -30,8 +32,8 @@ def get_snowflake_conn():
     account=account
     )
 
-    warehouse = "USE warehouse {}".fomart(os.environ.get('WH'))
-    schema = "USE {}".fomart(os.environ.get('SCHEMA'))
+    warehouse = "USE warehouse {}".fomart(env_wh)
+    schema = "USE {}".fomart(env_schema)
     ctx.cursor().execute(warehouse)
     ctx.cursor().execute(schema)
 
@@ -71,9 +73,9 @@ def home_func():
 def snowflake_func():
 
     ctx = snowflake.connector.connect(
-    user=os.environ.get('USER'),
-    password=os.environ.get('PW'),
-    account=os.environ.get('ACCOUNT')
+    user=user,
+    password=password,
+    account=account
     )
 
     cs = ctx.cursor()
