@@ -67,7 +67,7 @@ def handle_error(e):
 @app.route("/")
 def home_func():
     # this should check for an authenticated user then route to dashboard if true and login if false.
-    return render_template("home.html")
+    return 'Yes it works!'
 
 @app.route("/snowflake_test")
 def snowflake_func():
