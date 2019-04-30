@@ -10,9 +10,9 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-user = os.environ.get('USER')
-password = os.environ.get('PW')
-account = os.environ.get('ACCOUNT')
+user = str(os.environ.get('USER'))
+password = str(os.environ.get('PW'))
+account = str(os.environ.get('ACCOUNT'))
 
 # utility functions
 def get_generated_id():
