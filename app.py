@@ -20,13 +20,15 @@ def get_generated_id():
 def get_snowflake_conn():
 
     ctx = snowflake.connector.connect(
-    user='',
-    password='',
-    account=''
+    user=os.environ.get('USER'),
+    password=os.environ.get('PW'),
+    account=os.environ.get('ACCOUNT')
     )
 
-    ctx.cursor().execute("")
-    ctx.cursor().execute("")
+    warehouse = "USE warehouse {}".fomart(os.environ.get('WH'))
+    schema = "USE {}".fomart(os.environ.get('SCHEMA'))
+    ctx.cursor().execute(warehouse)
+    ctx.cursor().execute(schema)
 
     return ctx
 
@@ -64,9 +66,9 @@ def home_func():
 def snowflake_func():
 
     ctx = snowflake.connector.connect(
-    user='HEALTHPOINTS_USER',
-    password='6yrURqPb83NCzdTW',
-    account='healthgradesdev'
+    user=os.environ.get('USER'),
+    password=os.environ.get('PW'),
+    account=os.environ.get('ACCOUNT')
     )
 
     cs = ctx.cursor()
