@@ -4,6 +4,7 @@ from werkzeug.exceptions import HTTPException
 import snowflake.connector
 from snowflake.connector import DictCursor
 import uuid
+import os
 
 
 app = Flask(__name__)
