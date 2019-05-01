@@ -700,7 +700,7 @@ Get trackable_log by profile_id
 
 '''
 
-@app.route("/log/<profile_id>", methods = ['GET'])
+@app.route("/log/useprofileid/<profile_id>", methods = ['GET'])
 def log_by_profile_id_func(profile_id):
 
     # get connection to snowflake
