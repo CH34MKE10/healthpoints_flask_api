@@ -21,13 +21,13 @@ def get_generated_id():
 def get_snowflake_conn():
 
     ctx = snowflake.connector.connect(
-    user='{}'.format(os.environ.get('USER')),
-    password='{}'.format(os.environ.get('PW')),
-    account='{}'.format(os.environ.get('ACCOUNT'))
+    user='',
+    password='',
+    account=''
     )
 
-    ctx.cursor().execute('{}'.format(os.environ.get('WH')))
-    ctx.cursor().execute('{}'.format(os.environ.get('SCHEMA')))
+    ctx.cursor().execute("")
+    ctx.cursor().execute("")
 
     return ctx
 
