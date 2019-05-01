@@ -61,31 +61,6 @@ def home_func():
     # this should check for an authenticated user then route to dashboard if true and login if false.
     return 'Yes it works!'
 
-@app.route("/snowflake_test")
-def snowflake_func():
-
-    ctx = snowflake.connector.connect(
-    user=user,
-    password=password,
-    account=account
-    )
-
-    cs = ctx.cursor()
-
-    try:
-       cs.execute("SELECT current_version()")
-       one_row = cs.fetchone()
-    finally:
-       cs.close()
-    ctx.close()
-
-    data = {'data': one_row[0]}
-
-    resp = jsonify(data)
-    resp.status_code = 200
-
-    return resp
-
 
 @app.route("/profile", methods = ['GET', 'POST', 'PUT', 'DELETE'])
 def profile_func():
