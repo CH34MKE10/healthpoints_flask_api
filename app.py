@@ -10,12 +10,6 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-user = os.environ.get('USER')
-password = os.environ.get('PW')
-account = os.environ.get('ACCOUNT')
-warehouse = os.environ.get('WH')
-schema = os.environ.get('SCHEMA')
-
 # utility functions
 def get_generated_id():
 
@@ -27,13 +21,13 @@ def get_generated_id():
 def get_snowflake_conn():
 
     ctx = snowflake.connector.connect(
-    user=user,
-    password=password,
-    account=account
+    user='{}'.format(os.environ.get('USER')),
+    password='{}'.format(os.environ.get('PW')),
+    account='{}'.format(os.environ.get('ACCOUNT'))
     )
 
-    ctx.cursor().execute(warehouse)
-    ctx.cursor().execute(schema)
+    ctx.cursor().execute('{}'.format(os.environ.get('WH')))
+    ctx.cursor().execute('{}'.format(os.environ.get('SCHEMA')))
 
     return ctx
 
