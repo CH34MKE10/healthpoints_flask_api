@@ -711,7 +711,9 @@ def log_by_profile_id_func(profile_id):
     if profile_id:
 
         try:
-            cs.execute("SELECT * FROM trackable_log WHERE profile_id = %s", (profile_id))
+            cs.execute("SELECT * FROM trackable_log tl"
+                       "JOIN trackables t ON tl.trackable_id = t.id"
+                       "WHERE t.profile_id = %s", (profile_id))
             rows = cs.fetchall()
         except Exception as e:
 
