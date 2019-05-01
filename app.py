@@ -677,7 +677,7 @@ def log_by_trackable_id_func(trackable_id):
     if trackable_id:
 
         try:
-            cs.execute("SELECT * FROM trackable_log WHERE id = %s", (trackable_id))
+            cs.execute("SELECT * FROM trackable_log WHERE trackable_id = %s", (trackable_id))
             rows = cs.fetchall()
         except Exception as e:
 
