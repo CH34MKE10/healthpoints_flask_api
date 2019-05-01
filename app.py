@@ -696,6 +696,40 @@ def log_by_trackable_id_func(trackable_id):
 
 
 '''
+Get trackable_log by profile_id
+
+'''
+
+@app.route("/log/<profile_id>", methods = ['GET'])
+def log_by_profile_id_func(profile_id):
+
+    # get connection to snowflake
+    conn = get_snowflake_conn()
+
+    cs = conn.cursor(DictCursor)
+
+    if profile_id:
+
+        try:
+            cs.execute("SELECT * FROM trackable_log WHERE profile_id = %s", (profile_id))
+            rows = cs.fetchall()
+        except Exception as e:
+
+            raise(e)
+
+        finally:
+            cs.close()
+            close_snowflake_conn(conn)
+
+        data = {'data': rows}
+
+        resp = jsonify(data)
+        resp.status_code = 200
+
+        return resp
+
+
+'''
 CRUD for trackable_log table
 
 '''
