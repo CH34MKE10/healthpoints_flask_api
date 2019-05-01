@@ -456,7 +456,7 @@ Get trackables by profile_id
 '''
 
 @app.route("/trackable/<profile_id>", methods = ['GET'])
-def trackable_func(profile_id):
+def trackable_by_profile_id_func(profile_id):
 
     # get connection to snowflake
     conn = get_snowflake_conn()
@@ -467,7 +467,7 @@ def trackable_func(profile_id):
 
         try:
             cs.execute("SELECT * FROM trackables WHERE profile_id = %s", (profile_id))
-            rows = cs.fetchmany()
+            rows = cs.fetchall()
         except Exception as e:
 
             raise(e)
@@ -482,7 +482,7 @@ def trackable_func(profile_id):
         resp.status_code = 200
 
         return resp
-        
+
 
 '''
 CRUD for trackables table
@@ -660,6 +660,39 @@ def trackable_func():
 
             return resp
 
+
+'''
+Get trackable_log by trackable_id
+
+'''
+
+@app.route("/log/<trackable_id>", methods = ['GET'])
+def log_by_trackable_id_func(trackable_id):
+
+    # get connection to snowflake
+    conn = get_snowflake_conn()
+
+    cs = conn.cursor(DictCursor)
+
+    if trackable_id:
+
+        try:
+            cs.execute("SELECT * FROM trackable_log WHERE id = %s", (trackable_id))
+            rows = cs.fetchall()
+        except Exception as e:
+
+            raise(e)
+
+        finally:
+            cs.close()
+            close_snowflake_conn(conn)
+
+        data = {'data': rows}
+
+        resp = jsonify(data)
+        resp.status_code = 200
+
+        return resp
 
 
 '''
