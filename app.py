@@ -450,6 +450,39 @@ def category_func():
 
 
 
+'''
+Get trackables by profile_id
+
+'''
+
+@app.route("/trackable/<profile_id>", methods = ['GET'])
+def trackable_func(profile_id):
+
+    # get connection to snowflake
+    conn = get_snowflake_conn()
+
+    cs = conn.cursor(DictCursor)
+
+    if profile_id:
+
+        try:
+            cs.execute("SELECT * FROM trackables WHERE profile_id = %s", (profile_id))
+            rows = cs.fetchmany()
+        except Exception as e:
+
+            raise(e)
+
+        finally:
+            cs.close()
+            close_snowflake_conn(conn)
+
+        data = {'data': rows}
+
+        resp = jsonify(data)
+        resp.status_code = 200
+
+        return resp
+        
 
 '''
 CRUD for trackables table
